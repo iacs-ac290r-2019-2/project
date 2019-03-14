@@ -1,0 +1,56 @@
+\subsection{The Physical Constants}
+The physical system is an infinite slab of fluid confined between two parallel plates that hold a temperature difference, with gravity acting in the downward direction. In the simulation the fluid was set up with the following parameters:
+\begin{itemize}
+    \item density: $\rho=1$
+    \item viscosity: $\mu=10^{-2}$
+    \item thermal conductivity: $\kappa=10^{-2}$
+    \item volume expansion coefficient: $\alpha_V=10^6$
+\end{itemize}
+We let the gravity be a unit force acting along the $-y$ direction, and placed the plates at $y_\mathrm{bot}=0$ and $y_\mathrm{top}=1$. The bottom plate was heated up to $T_\mathrm{bot}=1$, while top plate was kept cool at $T_\mathrm{top}=0$. It gave us:
+\begin{itemize}
+    \item channel height: $H=1$
+    \item temperature difference: $\Delta T=1$
+    \item gravitational constant: $g=1$
+\end{itemize}
+So in terms of non-dimensionalization the system was characterized by:
+\begin{itemize}
+    \item Rayleigh number: $Ra=10^{10}$
+    \item Prandtl number: $Pr=1$
+\end{itemize}
+
+\subsection{The Boundaries and the Initial State}
+For the velocity field, no-slip boundary conditions were assumed on both plates, \emph{i.e.}
+\begin{equation}
+    \mathbf{u}\big|_{y=0}=0,\quad \mathbf{u}\big|_{y=1}=0.
+\end{equation}
+The plate temperature is supposed to be static over the simulation time. In practice, however, we ramp the bottom-plate temperature up from $0$ to $1$ in a relatively short time at the beginning of the simulation - this helps to get rid of the meta-stable solution of a thermal-conducting-only fluid. In specific, the temperature boundary conditions were designed as follows:
+\begin{equation}
+    T\big|_{y=0}=1-\mathrm{e}^{-t/0.2},\quad T\big|_{y=1}=0.
+\end{equation}
+
+In addition, in order to solve the infinity of the system along the $x$ direction, we set up a pair of ``artificial'' boundaries at $x_\mathrm{left}=0$ and $x_\mathrm{right}=2$ and assumed periodic boundary conditions for both the velocity field and the temperature field for approximation, \emph{i.e.}
+\begin{equation}
+    \mathbf{u}\big|_{x=0}=\mathbf{u}\big|_{x=2},\quad \partial_x\mathbf{u}\big|_{x=0}=\partial_x\mathbf{u}\big|_{x=2},
+\end{equation}
+\begin{equation}
+    T\big|_{x=0}=T\big|_{x=2},\quad 
+    \partial_x T\big|_{x=0}=\partial_x T\big|_{x=2}.
+\end{equation}
+
+Finally, the initial conditions were:
+\begin{equation}
+    \mathbf{u}\big|_{t=0}=0,\quad T\big|_{t=0}=0.
+\end{equation}
+Note that the initial condition for the temperature field is in accordance to our modification to its boundary condition. 
+
+\subsection{Discretization}
+A uniform mesh of $N_x=2048$ was used for the discretization of $x$. To capture the fine structures emerged near the plates, $y$ was discretized with a Chebyshev mesh:
+\begin{equation}
+    y_i=\frac{1}{2}\left(1-\cos\frac{i\pi}{N_y-1}\right),\quad i=0,1,\ldots,N_y-1,
+\end{equation}
+where we used $N_y=1024$. 
+
+The time integration was performed with a maximal time step of $10^{-4}$.
+
+\subsection{Computational Resources}
+The simulation was performed on Odyssey. The job requested 512 cores with 16GB memory assigned to each. We let it ran for 1 day and the final physical time arrived is $t\approx 0.22$.

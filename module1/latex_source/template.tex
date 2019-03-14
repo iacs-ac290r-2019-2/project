@@ -1,0 +1,114 @@
+\documentclass{article}
+
+\usepackage{float} % formatting figures
+\usepackage{graphicx} % for figures
+\usepackage{caption} % for continuing figures
+
+\usepackage{arxiv}
+\usepackage[utf8]{inputenc} % allowhttps://www.overleaf.com/project/5c87bf080afdb00df417c5e7 utf-8 input
+\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+\usepackage{hyperref}       % hyperlinks
+\usepackage{url}            % simple URL typesetting
+\usepackage{booktabs}       % professional-quality tables
+\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{microtype}      % microtypography
+\usepackage{lipsum}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\title{Simulating Rayleigh-Bénard Convection on Harvard Odyssey}
+
+
+\author{
+   Jiawei Zhuang \\
+   Harvard University\\
+   \textit{jiaweizhuang@g.harvard.edu}\\
+   \And
+   Yiqi Xie \\
+   Harvard University \\
+   \textit{yiqi\_xie@g.harvard.edu}\\
+   \And
+   David Pineiro \\
+   Harvard University \\
+   \textit{davidpineiro@g.harvard.edu}\\
+}
+  %% \AND
+  %% Coauthor \\
+  %% Affiliation \\
+  %% Address \\
+  %% \texttt{email} \\
+  %% \And
+  %% Coauthor \\
+  %% Affiliation \\
+  %% Address \\
+  %% \texttt{email} \\
+  %% \And
+  %% Coauthor \\
+  %% Affiliation \\
+  %% Address \\
+  %% \texttt{email} \\
+
+\begin{document}
+\maketitle
+
+
+\section{Introduction}
+
+\input{pineiro/intro.tex}
+
+\subsection{Thermal Convection}
+\input{pineiro/convection_intro.tex}
+\subsection{Harvard Odyssey}
+\input{pineiro/odyssey_intro.tex}
+% TODO: aspect ratio
+% TODO: time steps
+% TODO: finite elements
+
+\section{Description of Code}
+
+\input{pineiro/code_description.tex}
+
+
+% Show that you understand the xml file
+% Trilinos
+% https://trilinos.org/docs/files/TrilinosOverview.pdf
+% in class slides
+
+\section{Numerical Methods Utilized}
+\input{yxie/numerical_methods_utilized.tex}
+
+\section{Simulation Parameters}
+\input{yxie/simulation_parameters.tex}
+
+\section{Results}
+
+\input{zhuangjw/result.tex}
+
+\section{Conclusion and Future Work}
+\input{yxie/conclusion_backup.tex}
+
+
+\bibliographystyle{unsrt}  
+%\bibliography{references}  %%% Remove comment to use the external .bib file (using bibtex).
+%%% and comment out the ``thebibliography'' section.
+
+
+%%% Comment out this section when you \bibliography{references} is enabled.
+\begin{thebibliography}{1}
+
+\bibitem{cattle}
+Bruce, J. M. 
+\newblock Natural convection through openings and its application to cattle building ventilation. 
+\newblock In {\em Journal of Agricultural Engineering Research}, 23(2), 151-167.
+
+\bibitem{cattle}
+Zhu, Xiaojue, et al.
+\newblock Transition to the ultimate regime in two-dimensional Rayleigh-Bénard convection.
+\newblock In {\em Physical review letters}, 120.14 (2018): 144502.
+
+\end{thebibliography}
+
+
+\end{document}
