@@ -1,0 +1,16 @@
+As mentioned in the previous section, Drekar is a large scale computational fluid dynamics and electromagnetic partial differential equations (PDE) solver. Using parallel finite element code written in C++, it uses various algorithms and numerical methods to solve PDEs. A fundamental asset of Drekar is that it is was built on Trilinos, a centralized library of various highly efficient computational packages. In fact, Trilinos is a Greek term for “string of pearls,” meant to symbolize the importance of the other packages it carries, while being a pearl itself. 
+
+Drekar requires an .xml input file in which all of the parameters, methods, constraints, and tools to solve a problem are specified. 
+
+ParameterList Structures in XML file: 
+
+\begin{itemize}
+    \item[] \textbf{<ParameterList name = 'Mesh'>:} We begin the input file by setting and specifying the mesh, which can be either imported from an Exodus file, or specified. The mesh is also where we specify certain boundary conditions such as periodicity, although the rest of the boundary conditions is made into its own ParameterList Structure. 
+    \item[] \textbf{<ParameterList name = 'Physics Blocks'>:} After setting up the mesh structure, we set up physics blocks. These blocks establish environments where specific variables will be used in the equations Drekar will try to solve. Also, these blocks allow us to specify finite element methods, their parameters, and stabilization information. These blocks are later referenced boundary conditions are specified.
+    \item[] \textbf{<ParameterList name = 'Boundary Conditions'>:} These contain references to the behavior of the constraints, as well as pointers to where in the problem setup it belongs. 
+    \item[] \textbf{<ParameterList name = 'Closure Models'>:} This structure helps Drekar evaluate the parameters we are interested in and output them accordingly, as specified by the Output structure below.
+    \item[] \textbf{<ParameterList name = 'Output'>:} This structure helps Drekar redirect its output to a file specified in this structure.
+    \item[] \textbf{<ParameterList name = 'Solver Factories'>:} Used to specify Drekar's output granularity. That is, how often it writes to the output file.  
+\end{itemize}
+ 
+ Using these XML structures we were able to set up the Rayleigh-Bénard convection problem with specific parameter values specified in section 4.
