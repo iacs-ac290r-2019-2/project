@@ -5,8 +5,8 @@ Simulation:
 Drug released in blood vessel with stenosis
 
 Input:
- - blood: bgkflag.1 (.hdr, .dat, .ios)
- - drug:  bgkflag.2 (.hdr, .dat, .ios)
+ - blood: bgkflag.1 (.ios)
+ - drug:  bgkflag.2 (.ios)
 
 Time:
  - NPERIOD = 1e6
@@ -50,8 +50,8 @@ import math
 
 # preprocess_parallel_mesh(4); sys.exit(1)
 
-RE = 5.         # reynold number
-PE = 1.         # peclet  number
+RE = 2.         # reynold number
+PE = 10.        # peclet  number
 PR = 2.*PE/RE   # prandtl number
 
 RHO  = 1.       # blood density
@@ -68,9 +68,9 @@ C0 = 0.01       # initial concentration at the boundary
 C1 = 1.         # initial concentration in the bolus
 
 NPERIOD  = int(1e6)
-NSTEP    = int(4e6)
-NDIAG    = int(1e3)
-NVTKFREQ = int(1e3)
+NSTEP    = int(2e3)
+NDIAG    = int(25)
+NVTKFREQ = int(25)
 
 MagicBegins()
 
@@ -83,6 +83,7 @@ f = Fluid()     # blood
 c = Fluid()     # drug
 t = Tracker()
 
+# u.addItems([s,m,f,t])
 u.addItems([s,m,f,c,t])
 
 u.setTitle('DrugRelease')
@@ -94,17 +95,20 @@ u.create()
 
 # set params
 
+# s.set(name='MonoScale', mesh=m, actors=[f,t])
 s.set(name='MonoScale', mesh=m, actors=[f,c,t])
 m.setRegularMesh(True)
 m.setPeriodicity('000')
-m.setDomainDecomposition(3)
+m.setDomainDecomposition(1)
+# m.setDomainDecomposition(7)
+# m.setPartitionAlongXYZ(2,2,256) # for 1024 cores
 
 t.setDiagnosticFrequency(NDIAG)
 # t.setDataShow(density=True, velocity=True)
 # t.setMapDirections('zx')
 t.setVtkDump(True, frequency=NVTKFREQ)
 
-f.setName('BloodFlow')
+f.setName('Blood')
 f.setViscosity(NU)
 f.setDensityUniform(RHO)
 f.setInletOutletMethod('equilibrium')
@@ -112,7 +116,9 @@ f.setInletOutletFile('bgkflag.1.ios')
 f.setStabilizeLB(True)
 f.setFreeze(False)
 
-c.setName('DrugFlow')
+c.setName('Drug')
+c.setADR(True)
+c.setAdvector(f)
 c.setDiffusivity(D)
 c.setInletOutletMethod('equilibrium')
 c.setInletOutletFile('bgkflag.2.ios')
