@@ -32,7 +32,7 @@ def SP(NX, NY, NZ,
     volume.SetExtent(OFF, OFF+NX-1, OFF, OFF+NY-1, OFF, OFF+NZ-1)
     volume.AllocateScalars(VTK_DOUBLE,1)
 
-    dxh = OFF + NZ/4.; dyh = OFF + NZ/4.; dzh = OFF + NZ/2.
+    dxh = OFF + NX/2.; dyh = OFF + NY/2.; dzh = OFF + NZ/2.
 
     Scalars = vtkFloatArray()
 

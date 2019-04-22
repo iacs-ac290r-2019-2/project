@@ -49,7 +49,7 @@ def SP(NX, NY, NZ,
                 # if zz > HIZ/2.:
                 if k > OFF + NZ/4 and k < OFF + NZ/4 + NZ/20:
                     if r < RADIUS: 
-                        d = 150.0
+                        d = 1
                 # else:
                 #     if r < RADIUS/2.: 
                 #         d = 1
