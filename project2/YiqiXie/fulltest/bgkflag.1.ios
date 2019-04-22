@@ -1,6 +1,6 @@
 2
 1 inlet flow 0 0 -1       0 0 1       0.01
-2 outlet pressure 0 0 1       0 0 -1       0.0
+2 outlet pressure 0 0 1       0 0 -1       0
 1667
 18 13 11 1
 19 13 11 1

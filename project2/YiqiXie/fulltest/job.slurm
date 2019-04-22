@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH -n 1        # Number of cores
+#SBATCH -n 4        # Number of cores
 #SBATCH -N 1        # Ensure that all cores are on one machine
 #SBATCH -t 100      # Runtime in minutes
 #SBATCH -p test     # Partition to submit to

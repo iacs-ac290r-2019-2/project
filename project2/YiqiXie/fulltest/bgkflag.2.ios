@@ -1,6 +1,6 @@
 2
-1 inlet     0.01
-2 outlet    0.01
+1 inlet density 0 0 -1       0 0 1       0.01
+2 outlet density 0 0 -1       0 0 1       0.01
 1667
 18 13 11 1
 19 13 11 1
