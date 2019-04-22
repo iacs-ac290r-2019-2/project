@@ -5,8 +5,8 @@ Simulation:
 Drug released in blood vessel with stenosis
 
 Input:
- - blood: bgkflag.1 (.hdr, .dat, .ios)
- - drug:  bgkflag.2 (.hdr, .dat, .ios)
+ - blood: bgkflag.1.ios
+ - drug:  bgkflag.2.ios
 
 Time:
  - NPERIOD = 1e6
@@ -68,9 +68,9 @@ C0 = 0.01       # initial concentration at the boundary
 C1 = 1.         # initial concentration in the bolus
 
 NPERIOD  = int(1e6)
-NSTEP    = int(4e3)
-NDIAG    = int(1e2)
-NVTKFREQ = int(1e2)
+NSTEP    = int(2e3)
+NDIAG    = int(1e1)
+NVTKFREQ = int(1e1)
 
 MagicBegins()
 
@@ -117,6 +117,8 @@ f.setStabilizeLB(True)
 f.setFreeze(False)
 
 c.setName('Drug')
+c.setADR(True)
+c.setAdvector(f)
 c.setDiffusivity(D)
 c.setInletOutletMethod('equilibrium')
 c.setInletOutletFile('bgkflag.2.ios')
