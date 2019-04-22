@@ -33,7 +33,7 @@ Drug:
 Blood:
  - nu = 0.1
  - ubar = 0.01
- - u_in(t) = 1/2 * ubar * (1+cos(2*pi*t / NPERIOD))
+ - u_in(t) = 1/2 * ubar * (1 + cos(2*pi*t / NPERIOD))
  - p_out(t) = 0
  
 Characteristics:
@@ -108,12 +108,14 @@ f.setName('BloodFlow')
 f.setViscosity(NU)
 f.setDensityUniform(RHO)
 f.setInletOutletMethod('equilibrium')
+f.setInletOutletFile('bgkflag.1.ios')
 f.setStabilizeLB(True)
 f.setFreeze(False)
 
 c.setName('DrugFlow')
 c.setDiffusivity(D)
 c.setInletOutletMethod('equilibrium')
+f.setInletOutletFile('bgkflag.2.ios')
 c.setStabilizeLB(True)
 c.setFreeze(True)
 
@@ -141,6 +143,6 @@ for itime in u.cycle():
     c.setIOValue('outlet', 2, C0)
     if itime == 1000:
         c.setFreeze(False)
-	u.animate()
+    u.animate()
 
 MagicEnds()

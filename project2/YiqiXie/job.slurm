@@ -1,9 +1,10 @@
 #!/bin/bash
-#SBATCH -n 4        # Number of cores
-#SBATCH -N 4        # Ensure that all cores are on one machine
+#SBATCH -n 1        # Number of cores
+#SBATCH -N 1        # Ensure that all cores are on one machine
 #SBATCH -t 100      # Runtime in minutes
 #SBATCH -p test     # Partition to submit to
-#SBATCH --mem=100   # Memory pool for all cores (see also --mem-per-cpu)
+#SBATCH --mem-per-cpu=4000
+##SBATCH --mem=100   # Memory pool for all cores (see also --mem-per-cpu)
 ###SBATCH -o job_%j.out
 ###SBATCH -e job_%j.err
 
