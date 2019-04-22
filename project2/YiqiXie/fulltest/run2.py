@@ -68,9 +68,9 @@ C0 = 0.01       # initial concentration at the boundary
 C1 = 1.         # initial concentration in the bolus
 
 NPERIOD  = int(1e6)
-NSTEP    = int(4e6)
-NDIAG    = int(1e3)
-NVTKFREQ = int(1e3)
+NSTEP    = int(1e2)
+NDIAG    = int(1e1)
+NVTKFREQ = int(1e1)
 
 MagicBegins()
 
@@ -80,10 +80,11 @@ u = Universe()
 s = Scale()
 m = Mesh()
 f = Fluid()     # blood
-c = Fluid()     # drug
+# c = Fluid()     # drug
 t = Tracker()
 
-u.addItems([s,m,f,c,t])
+# u.addItems([s,m,f,c,t])
+u.addItems([s,m,f,t])
 
 u.setTitle('DrugRelease')
 u.setNumberOfSteps(NSTEP)
@@ -94,7 +95,8 @@ u.create()
 
 # set params
 
-s.set(name='MonoScale', mesh=m, actors=[f,c,t])
+# s.set(name='MonoScale', mesh=m, actors=[f,c,t])
+s.set(name='MonoScale', mesh=m, actors=[f,t])
 m.setRegularMesh(True)
 m.setPeriodicity('000')
 m.setDomainDecomposition(3)
@@ -112,37 +114,37 @@ f.setInletOutletFile('bgkflag.1.ios')
 f.setStabilizeLB(True)
 f.setFreeze(False)
 
-c.setName('DrugFlow')
-c.setDiffusivity(D)
-c.setInletOutletMethod('equilibrium')
-f.setInletOutletFile('bgkflag.2.ios')
-c.setStabilizeLB(True)
-c.setFreeze(True)
+# c.setName('DrugFlow')
+# c.setDiffusivity(D)
+# c.setInletOutletMethod('equilibrium')
+# c.setInletOutletFile('bgkflag.2.ios')
+# c.setStabilizeLB(True)
+# c.setFreeze(True)
 
 u.decorate()
 
-nx, ny, nz = m.getBox()
-nx = int(nx)
-ny = int(ny)
-nz = int(nz)
-profile2 = c.getArray(nx*ny*nz) 
-for k in xrange(1, nz+1):
-    for j in xrange(1, ny+1):
-        for i in xrange(1, nx+1):
-            ifl = m.getLocator(i,j,k)
-            if k-1 > (nz-1)/L*(B-W/2) and k-1 < (nz-1)/L*(B+W/2):
-                profile2[ifl] = C1
-            else:
-                profile2[ifl] = C0
-c.setDensityProfile(profile2)
+# nx, ny, nz = m.getBox()
+# nx = int(nx)
+# ny = int(ny)
+# nz = int(nz)
+# profile2 = c.getArray(nx*ny*nz) 
+# for k in xrange(1, nz+1):
+#     for j in xrange(1, ny+1):
+#         for i in xrange(1, nx+1):
+#             ifl = m.getLocator(i,j,k)
+#             if k-1 > (nz-1)/L*(B-W/2) and k-1 < (nz-1)/L*(B+W/2):
+#                 profile2[ifl] = C1
+#             else:
+#                 profile2[ifl] = C0
+# c.setDensityProfile(profile2)
 
 for itime in u.cycle():
     f.setIOValue('inlet',  1, 0.5*UBAR*(1+math.cos(2*math.pi*itime/NPERIOD)))
     f.setIOValue('outlet', 2, 0.)
-    c.setIOValue('inlet',  1, C0)
-    c.setIOValue('outlet', 2, C0)
-    if itime == 1000:
-        c.setFreeze(False)
+    # c.setIOValue('inlet',  1, C0)
+    # c.setIOValue('outlet', 2, C0)
+    # if itime == 1000:
+    #     c.setFreeze(False)
     u.animate()
 
 MagicEnds()
